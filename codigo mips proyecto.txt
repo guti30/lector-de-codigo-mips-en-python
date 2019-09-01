@@ -1,0 +1,229 @@
+.data
+	PI: .float  3.1416
+	raiz2Sobre12 .float 0.1179
+	cuatroTer .float 1.333
+
+.text
+
+	In  #   # guarda el dato de entrada de los switch area 
+	In  #1	# guarda el dato de entrada de los switch volumen
+	addi $t1,$zero,0 
+	lw $t1, #
+	addi $s1,$zero,0
+	lw $s1, #1
+	
+	addi $v0,$zero,2
+	beq  $t1,$v0,######T   #trapecio
+	addi $v0,$zero,3
+	beq  $t1,$v0,###C	#circulo
+	addi $v0,$zero,4
+	beq  $t1,$v0,####Tr	#triangulo
+	addi $v0,$zero,5
+	beq  $t1,$v0,#####cu	#cuadrado
+	addi $v0,$zero,6
+	beq  $t1,$v0,#####Ro	#rombo
+
+#paralelogramo
+	
+	In  #2   # guarda el dato de entrada de los switch #base
+	In  #3	 # altura
+	addi $t1,$zero,0 
+	lw $t1, #2
+	addi $t2,$zero,0 
+	lw $t2, #3
+	mult $t3,$t1,$t2
+	sw $t3,#2
+	Ot #2
+	j #####Vol
+	
+######T
+	
+	 In  #2  #base mayor
+	 In  #3	 #base menor
+	 In  #4	 #altura
+	 addi $t1,$zero,0 
+	 lw $t1, #2
+	 addi $t2,$zero,0 
+	 lw $t2, #3
+	 addi $t3,$zero,0 
+	 lw $t3, #4
+	 add $t4,$t1,$t2
+	 addi $t1,$zero,0
+	 mult $t1,$t4,$t3
+	 addi $t2,$zero,2
+	 addi $t4,$zero,0
+	 div  $t4,$t1,$t2
+	 sw   $t4,#2
+	 Ot #2
+	 j #####Vol
+
+###C
+
+	In  #2   #radio
+	addi $t1,$zero,0
+	lw   $t1, #2
+	addi $t2,$zero,0
+	mult $t2,$t1,$t1
+	addi $t1,$zero,0
+	lw   $t1,PI
+	addi $t3,$zero,0
+	mult $t3,$t2,$t1
+	sw   $t3,#2
+	Ot #2
+	j #####Vol
+	
+####Tr
+	
+	 In   #2           #base
+	 addi $t1,$zero,0
+	 lw   $t1, #2
+	 addi $t2,$zero,0
+	 In   #3           #altura
+	 lw   $t2, #3
+	 addi $t3,$zero,0
+	 mult $t3,$t2,$t1
+	 addi $t1,$zero,2
+	 addi $t2,$zero,0
+	 div  $t2$t3,$t1
+	 sw   $t2,#2
+	 Ot #2
+	 j #####Vol
+	
+#####cu				
+	
+	 In  #2   # lado
+	 addi $t1,$zero,0
+	 lw   $t1, #2
+	 addi $t2,$zero,0
+	 mult $t2,$t1,$t1
+	 sw   $t2,#2
+	 Ot #2
+	 j #####Vol
+
+#####Ro
+	
+	 In  #2   # diagonal1
+	 addi $t1,$zero,0
+	 lw   $t1, #2
+	 In  #3   # diagonal2
+	 addi $t2,$zero,0
+	 lw   $t2, #3
+	 addi $t0,$zero,0
+	 mult $t0,$t1,$t2
+	 addi $t3,$zero,2
+	 addi $t1,$zero,0
+	 div  $t1,$t0,$t3
+	 sw   $t1,#2
+	 Ot #2
+	
+#####Vol
+	addi $v0,$zero,2
+	beq  $s1,$v0,###Pri   #Prisma
+	addi $v0,$zero,3
+	beq  $s1,$v0,###Pir	#Piramide
+	addi $v0,$zero,4
+	beq  $s1,$v0,###Cil	#Cilindro
+	addi $v0,$zero,5
+	beq  $s1,$v0,####Esf	#Esfera
+	addi $v0,$zero,6
+	beq  $s1,$v0,####Tet	#Tetraedro regular
+	
+###Cub	
+        In  #2   #lado
+        addi $t1,$zero,0
+	lw   $t1, #2
+	addi $t2,$zero,0
+	mult $t2,$t1,$t1
+	addi $t3,$zero,0
+	mult $t3,$t1,$t2
+	sw   $t3,#2
+	Ot #2
+	j ####Fin
+
+###Pri
+	
+	In  #2   #area de la base
+	addi $t1,$zero,0
+	lw   $t1, #2
+	In  #3   # altura
+	addi $t2,$zero,0
+	lw   $t2, #3
+	addi $t3,$zero,0
+	mult $t3,$t1,$t2
+	sw   $t3,#2
+	Ot #2
+	j ####Fin
+	
+###Pir
+
+	In   #2   #base
+	addi $t1,$zero,0
+	lw   $t1, #2
+	In   #3   #altura
+	addi $t2,$zero,0
+	lw   $t2, #3
+	addi $t3,$zero,0
+	mult $t3,$t1,$t2
+	addi $t1,$zero,3
+	addi $t2,$zero,0
+	div  $t2,$t3,$t1
+	sw   $t2,#2
+	Ot #2
+	j ####Fin
+	
+###Cil
+	
+	In  #2    # radio
+	addi $t1,$zero,0
+	lw   $t1, #2
+	In  #3    # altura
+	addi $t2,$zero,0
+	lw   $t2, #3
+	lw   $t3, PI
+	addi $t0,$zero,0
+	mult $t0,$t1,$t1
+	addi $t1,$zero,0
+	mult $t1,$t0,$t2
+	addi $t0,$zero,0
+	mult $t0,$t1,$t3
+	sw   $t0,#2
+	Ot #2
+	j ####Fin
+	
+####Esf
+	
+	In  #3    # radio
+	addi $t1,$zero,0
+	lw   $t1, #3
+	lw   $t2, PI
+	lw   $t3, cuatroTer
+	addi $t0,$zero,0
+	mult $t0,$t1,$t1
+	addi $t0,$zero,0
+	addi $t4,$zero,0
+	mult $t4,$t0,$t1
+	addi $t1,$zero,0
+	mult $t1,$t4,$t2
+	addi $t2,$zero,0
+	mult $t2,$t1,$t3
+	sw   $t2,#2
+	Ot #2
+	j ####Fin
+	
+####Tet
+	
+	In  #3    # arista
+	addi $t1,$zero,0
+	lw   $t1, #3
+	addi $t2,$zero,0
+	lw   $t2, raiz2Sobre12
+	addi $t3,$zero,0
+	mult $t3,$t1,$t1
+	addi $t0,$zero,0	
+	mult $t0,$t3,$t1
+	addi $t1,$zero,0
+	mult $t1,$t0,$t2
+	sw   $t1,#2
+	Ot #2
+	
+####Fin

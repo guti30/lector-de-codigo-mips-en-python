@@ -1,0 +1,197 @@
+In
+In
+addi $t1,$zero,0
+lw $t1,
+addi $s1,$zero,0
+lw $s1, #1
+addi $v0,$zero,3
+beq  $t1,$v0,circulo
+addi $v0,$zero,2
+beq  $t1,$v0,trapecio
+addi $v0,$zero,4
+beq  $t1,$v0,triangulo
+addi $v0,$zero,5
+beq  $t1,$v0,cuadrado
+addi $v0,$zero,6
+beq  $t1,$v0,rombo
+
+paralelogramo In  #2 
+In  #3
+addi $t1,$zero,0 
+lw $t1, #2
+addi $t2,$zero,0 
+lw $t2, #3
+mult $t3,$t1,$t2
+sw $t3,#2
+Ot #2
+j volumen
+
+trapecio In  #2  
+In  #3
+In  #4
+addi $t1,$zero,0 
+lw $t1, #2
+addi $t2,$zero,0 
+lw $t2, #3
+addi $t3,$zero,0 
+lw $t3, #4
+add $t4,$t1,$t2
+addi $t1,$zero,0
+mult $t1,$t4,$t3
+addi $t2,$zero,2
+addi $t4,$zero,0
+div  $t4,$t1,$t2
+sw   $t4,#2
+Ot #2
+j volumen
+
+circulo In  #2  
+addi $t1,$zero,0
+lw   $t1, #2
+addi $t2,$zero,0
+mult $t2,$t1,$t1
+addi $t1,$zero,0
+lw   $t1,PI
+addi $t3,$zero,0
+mult $t3,$t2,$t1
+sw   $t3,#2
+Ot #2
+j volumen
+
+triangulo In  #2  
+In  #3
+addi $t1,$zero,0
+lw   $t1, #2
+addi $t2,$zero,0
+lw   $t2, #3
+addi $t3,$zero,0
+mult $t3,$t2,$t1
+addi $t1,$zero,2
+addi $t2,$zero,0
+div  $t2$t3,$t1
+sw   $t2,#2
+Ot #2
+j volumen
+
+cuadrado In  #2
+addi $t1,$zero,0
+lw   $t1, #2
+addi $t2,$zero,0
+mult $t2,$t1,$t1
+sw   $t2,#2
+Ot #2
+j volumen
+
+rombo In  #2
+addi $t1,$zero,0
+lw   $t1, #2
+In  #3
+addi $t2,$zero,0
+lw   $t2, #3
+addi $t0,$zero,0
+mult $t0,$t1,$t2
+addi $t3,$zero,2
+addi $t1,$zero,0
+div  $t1,$t0,$t3
+sw   $t1,#2
+Ot #2
+
+volumen
+
+addi $v0,$zero,2
+beq  $s1,$v0,prisma
+addi $v0,$zero,3
+beq  $s1,$v0,piramide
+addi $v0,$zero,4
+beq  $s1,$v0,cilindro
+addi $v0,$zero,5
+beq  $s1,$v0,esfera
+addi $v0,$zero,6
+beq  $s1,$v0,tetraedro regular
+
+cubo In  #2 
+addi $t1,$zero,0
+lw   $t1, #2
+addi $t2,$zero,0
+mult $t2,$t1,$t1
+addi $t3,$zero,0
+mult $t3,$t1,$t2
+sw   $t3,#2
+Ot #2
+j fin
+
+prisma	In  #2
+addi $t1,$zero,0
+lw   $t1, #2
+In  #3
+addi $t2,$zero,0
+lw   $t2, #3
+addi $t3,$zero,0
+mult $t3,$t1,$t2
+sw   $t3,#2
+Ot #2
+j fin
+
+piramide In   #2
+addi $t1,$zero,0
+lw   $t1, #2
+In   #3
+addi $t2,$zero,0
+lw   $t2, #3
+addi $t3,$zero,0
+mult $t3,$t1,$t2
+addi $t1,$zero,3
+addi $t2,$zero,0
+div  $t2,$t3,$t1
+sw   $t2,#2
+Ot #2
+j fin
+
+cilindro In  #2
+addi $t1,$zero,0
+lw   $t1, #2
+In  #3
+addi $t2,$zero,0
+lw   $t2, #3
+lw   $t3, PI
+addi $t0,$zero,0
+mult $t0,$t1,$t1
+addi $t1,$zero,0
+mult $t1,$t0,$t2
+addi $t0,$zero,0
+mult $t0,$t1,$t3
+sw   $t0,#2
+Ot #2
+j fin
+
+esfera In  #3
+addi $t1,$zero,0
+lw   $t1, #3
+lw   $t2, PI
+lw   $t3, 
+addi $t0,$zero,0
+mult $t0,$t1,$t1
+addi $t0,$zero,0
+addi $t4,$zero,0
+mult $t4,$t0,$t1
+addi $t1,$zero,0
+mult $t1,$t4,$t2
+addi $t2,$zero,0
+mult $t2,$t1,$t3
+sw   $t2,#2
+Ot #2
+j fin
+
+tetraedro In  #3
+addi $t1,$zero,0
+lw   $t1, #3
+addi $t2,$zero,0
+lw   $t2, 
+addi $t3,$zero,0
+mult $t3,$t1,$t1
+addi $t0,$zero,0	
+mult $t0,$t3,$t1
+addi $t1,$zero,0
+mult $t1,$t0,$t2
+sw   $t1,#2
+Ot #2
